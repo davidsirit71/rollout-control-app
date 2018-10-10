@@ -8,7 +8,7 @@ const userSchema = new Schema(
     email: { type: String, required: true },
     roll: {
       type: String,
-      enum: ["PManager", "PController", "Supervisor", "Subcontractor"],
+      enum: ["PManager", "PController", "Subcontractor"],
       required: true
     },
     image: String

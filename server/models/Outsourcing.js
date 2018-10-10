@@ -3,9 +3,8 @@ const Schema = mongoose.Schema;
 
 const outsourcingSchema = new Schema({
   subcontractor: String,
-  supervisor: String,
-  subcEval: Number,
-  supeEval: Number
+  tasklist: Array,
+  subcEval: Number
 });
 
 const Outsourcing = mongoose.model("Outsourcing", outsourcingSchema);
