@@ -2,15 +2,25 @@
 
 <form action="/auth/signup" method="POST" id="form-container">
   <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="JonSnow">
+  <input id="username" type="text" name="username" placeholder="Firstname Surename">
 
   <br><br>
 
   <label for="password">Password</label>
   <input id="password" type="password" name="password" placeholder="Your password">
+
+  <br><br>
+
+  <label for="email">email</label>
+  <input id="email" type="email" name="email" placeholder="*****">
+
+  <br><br>
+
+  <label for="img">Password</label>
+  <input id="img" type="img" name="img" placeholder="url de img">
   <br>
   {{#if message }}
-    <div class="error-message">{{ message }}</div>
+  <div class="error-message">{{ message }}</div>
   {{/if}}
 
   <br><br>
