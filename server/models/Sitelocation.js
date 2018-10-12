@@ -3,9 +3,7 @@ const Schema = mongoose.Schema;
 
 const siteSchema = new Schema({
   sitename: { type: String, required: true },
-  pmanager: { type: String, required: true },
-  pcontroller: String,
-  customerId: String,
+  project: {type: Schema.Types.ObjectId, ref: 'Project'},
   phaseEng: {
     active: {type: Boolean, default: false},
     subcontractor: String,
