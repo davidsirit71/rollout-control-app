@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const router = express.Router();
 const User = require("../models/User");
+const colors = require('colors');
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -22,18 +23,18 @@ const login = (req, user) => {
 };
 
 // SIGNUP and LOGGED USER
-router.get("/signup", (req, res, next) => {
-  res.render("auth/signup");
-});
+// router.get("/signup", (req, res, next) => {
+//   res.render("auth/signup");
+// });
 
 router.post("/signup", (req, res, next) => {
-  console.log(" Hi David entraste");
-  const { username, password, email, roll, image } = req.body;
-  console.log("username", username);
-  console.log("password", password);
-  console.log("email", email);
-  console.log("roll", roll);
-  console.log("imgurl", image);
+  console.log("Etapa de Signup y Login Creacion nuevo".green);
+  const { username, password, email, roll } = req.body;
+  console.log("username", username.red);
+  console.log("password", password.red);
+  console.log("email", email.red);
+  console.log("roll", roll.red);
+  //console.log("imgurl", image); // queda pendiente enviar imagen
 
   // Check for non empty required fields
   if (username === "" || password === "" || email === "" || roll === "") {
@@ -52,8 +53,7 @@ router.post("/signup", (req, res, next) => {
         username,
         password: hashPass,
         email,
-        roll,
-        image
+        roll
       }).save();
     })
     .then(savedUser => login(req, savedUser)) // loging new user using passport
@@ -62,11 +62,13 @@ router.post("/signup", (req, res, next) => {
 });
 
 // LOGING USER
-router.get("/login", (req, res, next) => {
-  res.render("auth/login", { message: req.flash("error") });
-});
+// router.get("/login", (req, res, next) => {
+//   res.render("auth/login", { message: req.flash("error") });
+// });
 
 router.post("/login", (req, res, next) => {
+  console.log('Entrado al loggin'.yellow);
+  console.log(req.yellow);
   passport.authenticate("local", (err, theUser, failureDetails) => {
     //error checking
     if (err) next(new Error("Something went wrong"));
@@ -93,7 +95,7 @@ router.get("/currentuser", (req, res, next) => {
 //   passReqToCallback: true
 // }));
 
-// LOGING USER
+// LOGOUT USER
 router.get("/logout", (req, res) => {
   req.logout();
   res.status(200).json({ massage: "logged out" });
