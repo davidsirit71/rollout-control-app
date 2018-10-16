@@ -83,7 +83,8 @@ class Signup extends Component {
               id='roll' 
               name='roll'
               rollSel={this.state.roll}
-              onChange={e => this.handleChange(e)}
+              onChange={e => this.handleChange(e)}  // TODO: reemplazar funcion con una especifica para select
+              // TODO: recordar que state debe ser PManager por default
               >
               <option value='PManager'>PManager</option>
               <option value='PController'>PController</option>

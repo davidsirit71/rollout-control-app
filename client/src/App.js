@@ -55,6 +55,14 @@ class App extends Component {
         <div className="App">
         <header className="App-header">
           <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
+          {/* <Switch>
+            <Route exact path='/signup'/>
+            <Route exact path='/signup'/>
+
+
+          </Switch>   */}
+
+
           {/* <Contents></Contents> */}
         </header>
       </div>
