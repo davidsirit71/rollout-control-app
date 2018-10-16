@@ -1,9 +1,12 @@
 const Project = require("../models/Project");
+const colors = require('colors');
 
+//get all projects DONE !!!
 exports.getProjects = ((req, res, next) => {
-  const userId = req.params.id;
-  console.log(userId);
-  Project.find({ team: { $in: [userId] } })
+  //const userId = req.params.id;
+  //console.log(userId);
+  // inside find { team: { $in: [userId] } }
+  Project.find()
     .then(proL => {
       console.log(proL);
       return res.status(200).json(proL);
@@ -13,10 +16,11 @@ exports.getProjects = ((req, res, next) => {
     });
 });
 
+//get a project
 exports.getOneProject = ((req, res, next) => {
-  const userId = req.params.id;
-  console.log(userId);
-  Project.findById(userId)
+  const pid = req.params.projectId;
+  console.log(pid.yellow);
+  Project.findById(pid)
     .then(proj => {
       console.log("Unico project");
       console.log(proj);
@@ -27,23 +31,30 @@ exports.getOneProject = ((req, res, next) => {
     });
 });
 
+//create a new project  DONE!!!!!!
 exports.createProject = ((req, res, next) => {
-  const liderId = req.user._id
+  //const liderId = req.user._id
   const { projectname, customer } = req.body;
-  console.log(projectname);
-  console.log(customer);
-  console.log(liderId);
+  console.log(projectname.blue);
+  console.log(customer.red);
+  //console.log(liderId.red);
   //console.log(lider);
   //console.log(team);
   //team: [userId]
+  Project.findOne({projectname})
+  .then((projFound)=> {
+    if (projFound) res.status(500).json({
+      status: `Project: ${projectname} already exist`
+    })
+  })
   const newProject = new Project({
     projectname,
-    customer,
-    lider: liderId
+    customer
   });
+  //lider: liderId
   newProject.save().then(nProj => {
-    console.log("creado nuevo proj");
-    Project.find({ lider:  ObjectId({liderId})})
+    console.log("Nuevo proyecto creado".green);
+    Project.find({projectname })
       .then(proL => {
         return res.status(200).json(proL);
       })
@@ -53,13 +64,12 @@ exports.createProject = ((req, res, next) => {
   });
 });
 
+//actualizar nuevo proyecto DONE!!!!
 exports.updateProject = ((req, res, next) => {
-  console.log(req.params.id);
-  console.log(req.body);
-  Project.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: false },
+  const pid = {_id: req.params.projectId }
+  console.log(pid.blue);
+  console.log(req.body.blue);
+  Project.findByIdAndUpdate( pid, req.body, { new: false },
     (err, data) => {
       if (!err) {
         res.status(200).json(data);
@@ -70,8 +80,10 @@ exports.updateProject = ((req, res, next) => {
   );
 });
 
+// delete a project  DONE!!!!
 exports.deleteProject = ((req, res, next) => {
-  Project.findByIdAndRemove(req.params.id)
+  const projToDelete = req.params.projectId;
+  Project.findByIdAndRemove(projToDelete)
     .then(() => {
       console.log("Proyect Deleted");
       return res.status(200).json({ message: "Proyect Deleted" });

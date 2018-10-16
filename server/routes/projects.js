@@ -3,10 +3,11 @@ const router = express.Router();
 
 const utils = require("./projects.utils");
 
-router.get("/all/:id", utils.getProjects);
-router.get("/:id", utils.getOneProject);
-router.post("/new", utils.createProject);
-router.put("/:id", utils.updateProject);
-router.delete("/:id", utils.deleteProject);
+// routes added to /projects/....
+router.get("/all", utils.getProjects);
+router.get("/:projectId", utils.getOneProject);
+router.post("/new/", utils.createProject);
+router.put("/:projectId", utils.updateProject);
+router.delete("/:projectId", utils.deleteProject);
 
 module.exports = router;

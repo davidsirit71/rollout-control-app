@@ -102,7 +102,7 @@ const consultaRoutes = require('./routes/consultas');
 app.use("/", index);
 app.use("/auth", authRoutes);
 app.use('/projects', projectRoutes);
-//app.use('/sites', siteRoutes);
+app.use('/sites', siteRoutes);
 //app.use('/workgroups',workgroupRoutes);
 //app.use('/consultas',consultaRoutes);
 
