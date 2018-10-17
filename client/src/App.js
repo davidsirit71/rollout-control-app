@@ -54,7 +54,11 @@ class App extends Component {
       return(
         <div className="App">
         <header className="App-header">
-          <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
+        <h1>APP Rollout Controll</h1>
+        </header>
+          <Navbar userInSession={this.state.loggedInUser} 
+          logout={this.logout} />
+
           {/* <Switch>
             <Route exact path='/signup'/>
             <Route exact path='/signup'/>
@@ -64,7 +68,6 @@ class App extends Component {
 
 
           {/* <Contents></Contents> */}
-        </header>
       </div>
       );
     } else{
@@ -72,6 +75,7 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
             <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
+            
             <Switch>
               <Route exact path='/signup' render={() => <Signup getUser={this.getTheUser}/>}/>
               <Route exact path='/login' render={() => <Login getUser={this.getTheUser}/>}/>

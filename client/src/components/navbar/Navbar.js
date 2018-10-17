@@ -20,7 +20,7 @@ class Navbar extends Component {
   render() {
     if (this.state.loggedInUser) {
       return (
-        <nav className="nav-style">
+        <nav className="navbar navbar-dark bg-dark">
           <ul>
             <li>
               <a onClick={this.handleLogout}>Logout</a>
@@ -33,7 +33,7 @@ class Navbar extends Component {
     } else {
       return (
         <div>
-          <nav className="nav-style">
+          <nav className="navbar navbar-dark bg-dark">
             <ul>
               <li>
                 <Link to="/signup">Signup</Link>
@@ -42,6 +42,7 @@ class Navbar extends Component {
                 <Link to="/login">Login</Link>
               </li>
             </ul>
+            
           </nav>
         </div>
       );

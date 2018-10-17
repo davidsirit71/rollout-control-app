@@ -9,7 +9,7 @@ class Signup extends Component {
       username: "",
       password: "",
       email: "",
-      roll: "",
+      roll: "Subcontractor",
     };
     this.service = new AuthService()
   }
