@@ -10,20 +10,15 @@ class Navbar extends Component {
     this.service = new AuthService();
   }
 
-  componentWillReceiveProps(nextProps) {
-    // debugger
-    this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] });
-  }
-
   handleLogout = e => {
     this.props.logout();
   };
 
   render() {
-    // debugger
-    if (this.state.loggedInUser) {
+    if (this.props.userInSession) {
       return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          
           <Link className="navbar-brand" to="/">
             Rollout App
           </Link>
@@ -63,9 +58,8 @@ class Navbar extends Component {
               </li>
             </ul>
           </div>
-          <h3>Welcome, {this.state.loggedInUser.username}</h3>
-
-          {console.log(this.state.loggedInUser.username)}
+          
+          <h3>Welcome, {this.props.userInSession.username}</h3>
         </nav>
       );
     } else {
@@ -95,7 +89,7 @@ class Navbar extends Component {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/login">
-                  Login1
+                  Login
                 </Link>
               </li>
             </ul>
