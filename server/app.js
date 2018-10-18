@@ -106,5 +106,10 @@ app.use('/sites', siteRoutes);
 //app.use('/workgroups',workgroupRoutes);
 //app.use('/consultas',consultaRoutes);
 
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
+
 
 module.exports = app;
