@@ -8,7 +8,6 @@ class AuthService{
     });
   }
 
-  axios.get(`${process.env.REACT_APP_API_URL}/some-route`, {withCredentials: true})
 
   signup = (username, password, email, roll)=> {
     return this.service.post('/signup', {username, password, email, roll})
