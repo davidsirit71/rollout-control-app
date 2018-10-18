@@ -15,14 +15,32 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedInUser: null
+      loggedInUser: null,
+      isAuthenticating: true
     };
     this.service = new AuthService();
   }
 
+  _test = () => {
+    this.service.loggedin()
+      .then(response => {
+        this.setState({
+          loggedInUser: response,
+          isAuthenticating: false
+        });
+      })
+      .catch(err => {
+        this.setState({
+          loggedInUser: false,
+          isAuthenticating: false
+        });
+      });
+  }
+
   getTheUser = userObj => {
     this.setState({
-      loggedInUser: userObj
+      loggedInUser: userObj,
+      isAuthenticating: false
     });
   };
 
@@ -32,48 +50,34 @@ class App extends Component {
     });
   };
 
-  fetchUser() {
-    if (this.state.loggedInUser === null) {
-      this.service.loggedin()
-        .then(reponse => {
-          this.setState({
-            loggedInUser: reponse
-          });
-        })
-        .catch(err => {
-          this.setState({
-            loggedInUser: false
-          });
-        });
-    }
+  componentDidMount() {
+    this._test();
   }
 
   render() {
-    this.fetchUser();
-
-    //debugger
+    if (this.state.isAuthenticating)  return null;
 
     if (this.state.loggedInUser) {
       return (
         <div className="App">
           <header className="App-header">
             <h1>APP Rollout con usuario</h1>
-          <Navbar
-            userInSession={this.state.loggedInUser}
-            logout={this.logout}
-          />
-          <Switch>
-            <Route
-              exact
-              path="/projects"
-              render={() => <Projects userData={this.state.loggedInUser} />}
+            <Navbar
+              userInSession={this.state.loggedInUser}
+              logout={this.logout}
             />
-            <Route
-              exact
-              path="/sites"
-              render={() => <Sites getUser={this.getTheUser} />}
-            />
-          </Switch>
+            <Switch>
+              <Route
+                exact
+                path="/projects"
+                render={() => <Projects userData={this.state.loggedInUser} />}
+              />
+              <Route
+                exact
+                path="/sites"
+                render={() => <Sites userData={this.state.loggedInUser} />}
+              />
+            </Switch>
           </header>
           {/* <Contents></Contents> */}
         </div>
@@ -103,28 +107,7 @@ class App extends Component {
         </div>
       );
     }
-    // return (
-    //   <div className="App">
-    //     <header className="App-header">
-    //       <img src={logo} className="App-logo" alt="logo" />
-    //       <p>
-    //         Edit <code>src/App.js</code> and save to reload.
-    //       </p>
-    //       <a
-    //         className="App-link"
-    //         href="https://reactjs.org"
-    //         target="_blank"
-    //         rel="noopener noreferrer"
-    //       >
-    //         Learn React
-    //       </a>
-    //     </header>
 
-    //     <div>
-    //       <h1>Rollout control app</h1>
-    //     </div>
-    //   </div>
-    // );
   }
 }
 

@@ -3,10 +3,12 @@ import axios from 'axios';
 class AuthService{
   constructor(){
     this.service = axios.create({
-      baseURL: 'http://localhost:3001/auth',
+      baseURL: `${process.env.REACT_APP_API_URL}/auth`,
       withCredenteials: true
     });
   }
+
+  axios.get(`${process.env.REACT_APP_API_URL}/some-route`, {withCredentials: true})
 
   signup = (username, password, email, roll)=> {
     return this.service.post('/signup', {username, password, email, roll})
