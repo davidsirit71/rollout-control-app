@@ -34,7 +34,7 @@ exports.getOneProject = (req, res, next) => {
 //create a new project  DONE!!!!!!
 exports.createProject = (req, res, next) => {
   //const liderId = req.user._id
-  const { projectname, customer } = req.body;
+  const { projectname, customer, lider } = req.body;
   console.log(projectname.blue);
   console.log(customer.red);
   //console.log(liderId.red);
@@ -42,16 +42,20 @@ exports.createProject = (req, res, next) => {
   //console.log(team);
   //team: [userId]
   Project.findOne({ projectname }).then(projFound => {
-    if (projFound)
+    if (projFound )
       res.status(500).json({
         status: `Project: ${projectname} already exist`
       });
+    if (projectname === ''|| customer ===''|| lider==='')
+    res.status(500).json({
+      status: `some fields missing...`
+    });
   });
   const newProject = new Project({
     projectname,
-    customer
+    customer,
+    lider
   });
-  //lider: liderId
   newProject.save().then(nProj => {
     console.log("Nuevo proyecto creado".green);
     Project.find({ projectname })
