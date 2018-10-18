@@ -66,7 +66,7 @@ class App extends Component {
             <Route
               exact
               path="/projects"
-              render={() => <Projects getUser={this.getTheUser} />}
+              render={() => <Projects userData={this.state.loggedInUser} />}
             />
             <Route
               exact

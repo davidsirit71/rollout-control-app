@@ -4,27 +4,41 @@ import ProjectService from "./ProjectService";
 import AuthService from "../auth/AuthService";
 //import "bulma/css/bulma.css";
 
-class Projects extends Comment {
+class Projects extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedInUser: "",
+      loggedInUser: '',
       dataProjects: {}
     };
     this.pService = new ProjectService();
     this.uService = new AuthService();
   }
 
-  //deberia pasar el usuario o el id del usuario
+  // deberia pasar el usuario o el id del usuario
 
-  render() {
+componentDidMount(){
+  this.pService.getAllProjects().then(res =>{
+    this.setState({
+      loggedInUser: this.props.userData,
+      dataProjects: res
+    })
+  })
+ }
+
+  render(){
+    console.log('Proyectos: ...',this.state.dataProjects);
+    console.log('Usuario: ..',this.state.loggedInUser);
+    const userAc = this.state.loggedInUser.username;
+    
+
     return (
       <div calssName="list-group">
         <button
           type="button"
           calssName="list-group-item list-group-item-action active"
         >
-          Proyectos
+          Proyectos {userAc}
         </button>
         <ul className="list-group">
           <li className="list-group-item d-flex justify-content-between align-items-center">
