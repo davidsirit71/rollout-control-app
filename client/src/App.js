@@ -1,89 +1,107 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import {Switch, Route} from 'react-router-dom';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { Switch, Route } from "react-router-dom";
 
-import Navbar from './components/navbar/Navbar';
+import Navbar from "./components/navbar/Navbar";
 
-import Signup from './components/auth/Signup';
-import Login from './components/auth/Login';
-import AuthService from './components/auth/AuthService';
+import Signup from "./components/auth/Signup";
+import Login from "./components/auth/Login";
+import AuthService from "./components/auth/AuthService";
+import Projects from "./components/projects/Projects";
+import Sites from "./components/sites/Sites";
 
 class App extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = { loggedInUser: null };
+    this.state = {
+      loggedInUser: null
+    };
     this.service = new AuthService();
   }
 
-  getTheUser = (userObj)=> {
+  getTheUser = userObj => {
     this.setState({
       loggedInUser: userObj
-    })
-  }
+    });
+  };
 
-  logout = ()=> {
-    this.service.logout()
-    .then(()=>{
-      this.setState({ loggedInUser: null})
-    })
-  }
+  logout = () => {
+    this.service.logout().then(() => {
+      this.setState({ loggedInUser: null });
+    });
+  };
 
   fetchUser() {
-    if (this.state.loggedInUser === null){
+    if (this.state.loggedInUser === null) {
       this.service.loggedin()
-      .then(reponse =>{
-        this.setState({
-          loggedInUser: reponse
+        .then(reponse => {
+          this.setState({
+            loggedInUser: reponse
+          });
         })
-      })
-      .catch( err=> {
-        this.setState({
-          loggedInUser: false
-        })
-      })
+        .catch(err => {
+          this.setState({
+            loggedInUser: false
+          });
+        });
     }
   }
-
 
   render() {
     this.fetchUser();
 
-    if(this.state.loggedInUser){
-      return(
-        <div className="App">
-        <header className="App-header">
-        <h1>APP Rollout Controll</h1>
-        </header>
-          <Navbar userInSession={this.state.loggedInUser} 
-          logout={this.logout} />
+    //debugger
 
-          {/* <Switch>
-            <Route exact path='/signup'/>
-            <Route exact path='/signup'/>
-
-
-          </Switch>   */}
-
-
-          {/* <Contents></Contents> */}
-      </div>
-      );
-    } else{
+    if (this.state.loggedInUser) {
       return (
         <div className="App">
           <header className="App-header">
-            <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
-            
+            <h1>APP Rollout con usuario</h1>
+          <Navbar
+            userInSession={this.state.loggedInUser}
+            logout={this.logout}
+          />
+          <Switch>
+            <Route
+              exact
+              path="/projects"
+              render={() => <Projects getUser={this.getTheUser} />}
+            />
+            <Route
+              exact
+              path="/sites"
+              render={() => <Sites getUser={this.getTheUser} />}
+            />
+          </Switch>
+          </header>
+          {/* <Contents></Contents> */}
+        </div>
+      );
+    } else {
+      console.log('prueba 1')
+      return (
+        <div className="App">
+          <header className="App-header">
+            <Navbar
+              userInSession={this.state.loggedInUser}
+              logout={this.logout}
+            />
             <Switch>
-              <Route exact path='/signup' render={() => <Signup getUser={this.getTheUser}/>}/>
-              <Route exact path='/login' render={() => <Login getUser={this.getTheUser}/>}/>
+              <Route
+                exact
+                path="/signup"
+                render={() => <Signup getUser={this.getTheUser} />}
+              />
+              <Route
+                exact
+                path="/login"
+                render={() => <Login getUser={this.getTheUser} />}
+              />
             </Switch>
           </header>
         </div>
       );
-
     }
     // return (
     //   <div className="App">

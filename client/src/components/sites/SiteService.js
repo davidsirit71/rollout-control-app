@@ -25,18 +25,20 @@ class SiteService {
   };
 
   createOneSite =(sitename, project, phEnAc, phInAc)=>{
-    return this.service.post(`/new`, {})
+    return this.service.post(`/new`, {sitename, project, phEnAc, phInAc})
+    .then(response => response.data)
   };
 
-  updateOneSite = ()=>{
+  updateOneSite = (siteId, {newData})=>{
+    return this.service.put(`/${siteId}`, {newData})
     .then(response => response.data)
-
   };
 
-  deleteOneSite = ()=>{
+  deleteOneSite = (siteId)=>{
+    return this.service.delete(`/${siteId}`, )
     .then(response => response.data)
-
   };
 
 }
+
 export default SiteService;
