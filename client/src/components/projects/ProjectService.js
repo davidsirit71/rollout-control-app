@@ -18,8 +18,8 @@ getOneProject = (projectId)=>{
   .then(reponse => reponse.data)
 };
 
-createNewProject = (projectname, customer)=>{
-  return this.service.post('/new', {projectname, customer}) 
+createNewProject = (projectname, customer, lider)=>{
+  return this.service.post('/new', {projectname, customer, lider}) 
   .then(reponse => reponse.data)
 };
 

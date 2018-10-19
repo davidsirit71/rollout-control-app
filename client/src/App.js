@@ -10,6 +10,8 @@ import Login from "./components/auth/Login";
 import AuthService from "./components/auth/AuthService";
 import Projects from "./components/projects/Projects";
 import Sites from "./components/sites/Sites";
+import NewSite from './components/sites/NewSite'
+import NewProject from './components/projects/NewProject'
 
 class App extends Component {
   constructor(props) {
@@ -70,8 +72,18 @@ class App extends Component {
             <Switch>
               <Route
                 exact
+                path="/projects/new"
+                render={() => <NewProject userData={this.state.loggedInUser} />}
+              />
+              <Route
+                exact
                 path="/projects"
                 render={() => <Projects userData={this.state.loggedInUser} />}
+              />
+              <Route
+                exact
+                path="/sites/new"
+                render={() => <NewSite userData={this.state.loggedInUser} />}
               />
               <Route
                 exact
