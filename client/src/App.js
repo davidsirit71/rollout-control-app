@@ -22,7 +22,8 @@ class App extends Component {
   }
 
   _test = () => {
-    this.service.loggedin()
+    this.service
+      .loggedin()
       .then(response => {
         this.setState({
           loggedInUser: response,
@@ -35,7 +36,7 @@ class App extends Component {
           isAuthenticating: false
         });
       });
-  }
+  };
 
   getTheUser = userObj => {
     this.setState({
@@ -55,7 +56,7 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.isAuthenticating)  return null;
+    if (this.state.isAuthenticating) return null;
 
     if (this.state.loggedInUser) {
       return (
@@ -79,11 +80,23 @@ class App extends Component {
               />
             </Switch>
           </header>
+          {/* <body>
+            <div className="container">
+              <div>
+                <h2>Projects</h2>
+                <Projects/>
+              </div>
+              <div>
+                <h2>Sites</h2>
+                <Sites/>
+              </div>
+            </div>
+          </body> */}
           {/* <Contents></Contents> */}
         </div>
       );
     } else {
-      console.log('prueba 1')
+      console.log("prueba 1");
       return (
         <div className="App">
           <header className="App-header">
@@ -107,7 +120,6 @@ class App extends Component {
         </div>
       );
     }
-
   }
 }
 

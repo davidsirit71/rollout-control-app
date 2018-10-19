@@ -8,12 +8,17 @@ class Projects extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedInUser: "",
-      dataProjects: [],
+      loggedInUser: this.props.userData,
+      dataProjects: []
     };
     this.pService = new ProjectService();
     this.uService = new AuthService();
   }
+
+  // actualizar components
+  // componentWillReceiveProps(nextProps){
+
+  // }
 
   // deberia pasar el usuario o el id del usuario
 
@@ -31,43 +36,38 @@ class Projects extends Component {
     //console.log("Usuario: ..", this.state.loggedInUser);
     const userAc = this.state.loggedInUser.username;
     const listP = this.state.dataProjects;
-    console.log(listP)
+    console.log("proyectos: ..", listP[0]);
+    console.log("Usuario: ..", userAc);
 
+    // const proFilter = this.state.dataProjects.filter(e => {
+    //   e.lider === this.state.loggedInUser._id
+    // } )
 
-    console.log("Usuario: ..", userAc)
-// if (this.state.dataProjects){
-//   return(
-//     this.state.dataProjects.map((e, i) =>  <p>{e._id}</p>)
-//   )
-// }
     return (
-      <div calssName="list-group">
-        <button
-          type="button"
-          calssName="list-group-item list-group-item-action active">
-          <h3>{userAc} Projects list</h3>
-        </button>
-        <ul className="list-group">
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-          Proyecto XXX
-            <span className="badge badge-info badge-pill">Vi</span>
-            <span className="badge badge-warning badge-pill">ed</span>
-            <span className="badge badge-danger badge-pill">de</span>
-          </li>
-
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-          Proyecto XXX
-            <span className="badge badge-info badge-pill">Vi</span>
-            <span className="badge badge-warning badge-pill">ed</span>
-            <span className="badge badge-danger badge-pill">de</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-          Proyecto XXX
-            <span className="badge badge-info badge-pill">Vi</span>
-            <span className="badge badge-warning badge-pill">ed</span>
-            <span className="badge badge-danger badge-pill">de</span>
-          </li>
-        </ul>
+      <div className="row">
+        <div className="col-sm-6">
+          <div className="list-group">
+            <button
+              type="button"
+              className="list-group-item list-group-item-action active"
+            >
+              <h3>{userAc} Projects list</h3>
+            </button>
+            <ul className="list-group">
+              {this.state.dataProjects.map((e, i) => (
+                <li
+                  key={i}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  {e.projectname}
+                  <span className="badge badge-info badge-pill">Vi</span>
+                  <span className="badge badge-warning badge-pill">ed</span>
+                  <span className="badge badge-danger badge-pill">de</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }

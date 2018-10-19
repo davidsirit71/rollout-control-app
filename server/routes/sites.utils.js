@@ -26,7 +26,7 @@ exports.createSite = (req, res, next) => {
         return res.status(200).json(nS);
       })
       .catch(err => {
-        return res.status(200).json(err);
+        return res.status(500).json(err);
       });
   });
 };
@@ -60,10 +60,10 @@ exports.getAllSitesInProject = (req, res, next) => {
   Site.find({ project: pid })
     .then(listFound => {
       console.log(listFound.green);
-      return res.status(500).json(listFound);
+      return res.status(200).json(listFound);
     })
     .catch(err => {
-      return res.status(200).json({ message: "sites not found" });
+      return res.status(500).json({ message: "sites not found" });
     });
 };
 
@@ -71,10 +71,10 @@ exports.getAllSitesInProject = (req, res, next) => {
 exports.getAllSites = (req, res, next) => {
   Site.find()
     .then(listFound => {
-      return res.status(500).json(listFound);
+      return res.status(200).json(listFound);
     })
     .catch(err => {
-      return res.status(200).json({ message: "sites not found" });
+      return res.status(500).json({ message: "sites not found" });
     });
 };
 
@@ -88,7 +88,7 @@ exports.deleteSite = ((req, res, next) => {
   })
   .catch( err => {
     console.log("Something worng when deleting");
-    return res.status(200).json(err);
+    return res.status(500).json(err);
   })
 })
 //Update a Site info  DONE!!!!

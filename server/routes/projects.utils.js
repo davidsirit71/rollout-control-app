@@ -43,7 +43,7 @@ exports.createProject = (req, res, next) => {
   //team: [userId]
   Project.findOne({ projectname }).then(projFound => {
     if (projFound )
-      res.status(500).json({
+      res.status(200).json({
         status: `Project: ${projectname} already exist`
       });
     if (projectname === ''|| customer ===''|| lider==='')
